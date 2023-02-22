@@ -5,22 +5,27 @@ import java.util.List;
 
 public class SignListService {
 
-    public static List<Sign> checkInputText(String inputText) {
-        String inputSign = "";
+    public static String checkInputText(String inputText) {
+        String inputSign;
         String previousSign = "";
+        String warningEmptyString = "Inputed text was empty!";
         int inputCount = 0;
         List<Sign> list = new ArrayList<>();
 
+        if(inputText.isEmpty()) {
+            return warningEmptyString;
+        }
+
         for(int i=0; i<inputText.length(); i++) {
             inputSign = inputText.substring(i, i+1);
-            //System.out.println(inputSign);
+
             if(!inputSign.equals(previousSign) && i>0) {
                 Sign sign = new Sign(previousSign, inputCount);
                 list.add(sign);
-
                 inputCount = 0;
             }
             inputCount++;
+
             if (i==inputText.length()-1) {
                 Sign sign = new Sign(inputSign, inputCount);
                 list.add(sign);
@@ -28,12 +33,16 @@ public class SignListService {
             previousSign = inputSign;
         }
 
-        return list;
+        return convertResultToString(list);
     }
-    public static void printResult(List<Sign> list) {
+    private static String convertResultToString(List<Sign> list) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         for(Sign sign : list) {
-            System.out.print(sign.getSign()+sign.getCounter());
+            stringBuilder.append(sign.getSign());
+            stringBuilder.append(sign.getCounter());
         }
-        System.out.println();
+
+        return stringBuilder.toString();
     }
 }

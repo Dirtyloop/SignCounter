@@ -10,17 +10,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<Sign> signsList;
-
         System.out.println("Program checks how many of the same characters are given next to each other in the text.");
         System.out.println("The result will be printed in format [sign1][number1][sign2][number2]...");
         System.out.println("Insert text to check:");
 
         String inputText = scan.nextLine();
 
-        signsList = SignListService.checkInputText(inputText);
+        System.out.println(SignListService.checkInputText(inputText));
 
-        SignListService.printResult(signsList);
+
     }
 
 }
